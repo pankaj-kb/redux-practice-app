@@ -1,7 +1,14 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
-  todos: [], //Storing todos as in array
+  todos: [
+    { id: 4431, title: "Complete this app", completed: false },
+    {
+      id: 4432,
+      title: "Modify this app",
+      completed: false,
+    },
+  ], //Storing todos as in array
 };
 
 export const todoSlice = createSlice({
