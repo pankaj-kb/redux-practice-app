@@ -1,5 +1,5 @@
 import { nanoid } from "@reduxjs/toolkit";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { removeTodo, addTodo } from "../features/todoSlice";
@@ -14,8 +14,10 @@ function Todos() {
   };
 
   const handleAddTodo = () => {
-    dispatch(addTodo(inputTask));
-    setInputTask("");
+    if (inputTask !== "") {
+      dispatch(addTodo(inputTask));
+      setInputTask("");
+    }
   };
 
   return (
@@ -32,9 +34,9 @@ function Todos() {
         <input
           type="text"
           placeholder="Enter Task"
+          value={inputTask}
           onChange={handleInputTask}
         />
-        <h1>{inputTask}</h1>
         <button onClick={handleAddTodo}>Add Task</button>
       </div>
     </div>
