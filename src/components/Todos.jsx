@@ -1,3 +1,4 @@
+import { nanoid } from "@reduxjs/toolkit";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -12,15 +13,20 @@ function Todos() {
     setInputTask(event.target.value);
   };
 
+  const handleAddTodo = () => {
+    dispatch(addTodo(inputTask));
+    setInputTask("");
+  };
+
   return (
     <div>
       {todos.map((todo) => (
-        <>
-          <h1 key={todo.id}>{todo.title}</h1>
+        <div key={todo.id}>
+          <h1>{todo.title}</h1>
           <button onClick={() => dispatch(removeTodo(todo.id))}>
             Remove Task
           </button>
-        </>
+        </div>
       ))}
       <div>
         <input
@@ -29,7 +35,7 @@ function Todos() {
           onChange={handleInputTask}
         />
         <h1>{inputTask}</h1>
-        <button> Add Task</button>
+        <button onClick={handleAddTodo}>Add Task</button>
       </div>
     </div>
   );
