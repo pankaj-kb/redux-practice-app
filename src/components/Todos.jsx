@@ -2,7 +2,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { removeTodo, addTodo } from "../features/todoSlice";
+import { removeTodo, addTodo, completeTodo } from "../features/todoSlice";
 import "react-tippy/dist/tippy.css";
 import { Tooltip } from "react-tippy";
 
@@ -22,15 +22,19 @@ function Todos() {
     }
   };
 
-  // const markComplete = () => {
-  //   if ()
-  // }
+  const handleCompleteTodo = (id) => {
+    dispatch(completeTodo(id));
+  };
 
   return (
     <div>
       {todos.map((todo) => (
         <div key={todo.id}>
-          <h1>{todo.title}</h1>
+          <h1
+            style={{ textDecoration: todo.completed ? "line-through" : "none" }}
+          >
+            {todo.title}
+          </h1>
           <Tooltip
             title="Remove task from list"
             position="bottom"
@@ -45,7 +49,9 @@ function Todos() {
             position="bottom"
             trigger="mouseenter"
           >
-            <button onClick={() => dispatch(removeTodo(todo.id))}>Done</button>
+            {!todo.completed && (
+              <button onClick={() => handleCompleteTodo(todo.id)}>Done</button>
+            )}
           </Tooltip>
         </div>
       ))}

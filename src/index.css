@@ -27,6 +27,6 @@ h1 {
   line-height: 1.1;
 }
 
-h1Strike {
+strikeComplete {
   text-decoration: line-through;
 }
