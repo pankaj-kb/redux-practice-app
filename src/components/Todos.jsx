@@ -1,5 +1,4 @@
-import { nanoid } from "@reduxjs/toolkit";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { removeTodo, addTodo, completeTodo } from "../features/todoSlice";
@@ -27,44 +26,63 @@ function Todos() {
   };
 
   return (
-    <div>
-      {todos.map((todo) => (
-        <div key={todo.id}>
-          <h1
-            style={{ textDecoration: todo.completed ? "line-through" : "none" }}
+    <div className="h-screen flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[50px]">
+      <div className="flex flex-col gap-[15px]">
+        {todos.map((todo) => (
+          <div
+            key={todo.id}
+            className="flex gap-[20px] justify-center items-center"
           >
-            {todo.title}
-          </h1>
-          <Tooltip
-            title="Remove task from list"
-            position="bottom"
-            trigger="mouseenter"
-          >
-            <button onClick={() => dispatch(removeTodo(todo.id))}>
-              Remove Task
-            </button>
-          </Tooltip>
-          <Tooltip
-            title="Mark the task as complete"
-            position="bottom"
-            trigger="mouseenter"
-          >
-            {!todo.completed && (
-              <button onClick={() => handleCompleteTodo(todo.id)}>Done</button>
-            )}
-          </Tooltip>
-        </div>
-      ))}
-      <div>
+            <h1
+              className={`${
+                todo.completed ? "bg-[#9DECFF] line-through" : "bg-[#FEF970]"
+              } text-[#0A120B] text-[30px] text-center items-center font-[600] rounded-[30px] h-[80px] w-[450px] pt-[10px]`}
+            >
+              {todo.title}
+            </h1>
+            <Tooltip
+              title="Remove task from list"
+              position="bottom"
+              trigger="mouseenter"
+            >
+              <button
+                className="bg-[#FFFFFF]"
+                onClick={() => dispatch(removeTodo(todo.id))}
+              >
+                Remove Task
+              </button>
+            </Tooltip>
+            <Tooltip
+              title="Mark the task as complete"
+              position="bottom"
+              trigger="mouseenter"
+            >
+              {!todo.completed && (
+                <button
+                  className="bg-[#FFFFFF]"
+                  onClick={() => handleCompleteTodo(todo.id)}
+                >
+                  Done
+                </button>
+              )}
+            </Tooltip>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex flex-col gap-[20px] justify-center items-center">
         <Tooltip title="Enter task here" position="bottom" trigger="mouseenter">
           <input
+            className="text-[#0A120B] text-[30px] text-center items-center font-[600] rounded-[30px] h-[80px] w-[450px] pt-[10px] bg-[#ffffff]"
             type="text"
             placeholder="Enter Task"
             value={inputTask}
             onChange={handleInputTask}
           />
         </Tooltip>
-        <button onClick={handleAddTodo}>Add Task</button>
+        <button className="bg-[#FFFFFF]" onClick={handleAddTodo}>
+          Add Task
+        </button>
       </div>
     </div>
   );
