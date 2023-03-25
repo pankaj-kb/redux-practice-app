@@ -66,6 +66,7 @@ function Todos() {
         </Tooltip>
         <button onClick={handleAddTodo}>Add Task</button>
       </div>
+      <h3 className="text-3xl bg-white">Hello World</h3>
     </div>
   );
 }
