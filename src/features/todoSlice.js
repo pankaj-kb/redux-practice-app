@@ -2,11 +2,11 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
   todos: [
-    { id: nanoid(), title: "Complete this app", completed: false },
+    { id: nanoid(), title: "Make this app responsive", completed: true },
     {
       id: nanoid(),
-      title: "Modify this app",
-      completed: true,
+      title: "Add local storage to this app",
+      completed: false,
     },
   ], //Storing todos as in array
 };
@@ -32,12 +32,12 @@ export const todoSlice = createSlice({
         todo.completed = true;
       }
     },
-    unMark : (state, action) => {
-      const todo = state.todos.find((todo) => todo.id === action.payload)
+    unMark: (state, action) => {
+      const todo = state.todos.find((todo) => todo.id === action.payload);
       if (todo) {
         todo.completed = false;
       }
-    }
+    },
   },
 });
 

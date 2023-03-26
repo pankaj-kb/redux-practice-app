@@ -7,13 +7,17 @@ import {
   completeTodo,
   unMark,
 } from "../features/todoSlice";
+
 import "react-tippy/dist/tippy.css";
+
 import { Tooltip } from "react-tippy";
 
+// Icons
 import { FaPlus } from "react-icons/fa";
 
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdModeEditOutline, MdCheck, MdRemoveDone } from "react-icons/md";
 
+// Actual App
 function Todos() {
   const todos = useSelector((state) => state.todos.todos);
   const dispatch = useDispatch();
@@ -39,67 +43,86 @@ function Todos() {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[50px]">
-      <div className="flex flex-col gap-[15px]">
+    <div className="h-screen flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[30px] border-[3px] border-[#5E8BFF]">
+      {/* Todo Lines area */}
+      <div className="flex flex-col gap-[8px]">
         {todos.map((todo) => (
           <div
             key={todo.id}
-            className="flex gap-[20px] justify-center items-center"
+            className="flex gap-[12px] justify-center items-center"
           >
+            {/* Todo Title */}
             <h1
               className={`${
-                todo.completed ? "bg-[#9DECFF] line-through" : "bg-[#FEF970]"
-              } text-[#0A120B] text-[30px] text-center items-center font-[600] rounded-[30px] h-[80px] w-[450px] pt-[10px]`}
+                todo.completed
+                  ? "bg-[#A8D672] line-through italic"
+                  : "bg-[#F7D44C]"
+              } text-[#0A120B] text-[18px] text-center items-center rounded-[15px] h-[50px] w-[300px] font-extrabold pt-[10px]`}
             >
               {todo.title}
             </h1>
-
-            <Tooltip
+            <div className="flex gap-[12px] justify-center items-center">
+             {/* Mark Complete button */}
+             <Tooltip
               title={todo.completed ? "Mark as incomplete" : "Mark as complete"}
               position="bottom"
               trigger="mouseenter"
             >
-              <input
-                className="form-checkbox rounded-[20px] text-[#5B8AFD] h-6 w-6"
-                type="checkbox"
-                checked={todo.completed}
-                onChange={() => {
+              <button
+                onClick={() => {
                   if (todo.completed) {
                     handleUnMarkTodo(todo.id);
                   } else {
                     handleCompleteTodo(todo.id);
                   }
                 }}
-              />
+              > 
+              {todo.completed ? 
+              <MdRemoveDone className="bg-[#F7D44C] text-[#ffffff] w-[22px] h-[25px] rounded-[100%] p-[2px]" /> 
+              : <MdCheck className="bg-[#A8D672] text-[#ffffff] w-[22px] h-[25px] rounded-[100%] p-[2px]" />}
+              </button>
             </Tooltip>
+
+            {/* Task remove button */}
             <Tooltip
               title="Remove task from list"
               position="bottom"
               trigger="mouseenter"
             >
-              <button
-                onClick={() => dispatch(removeTodo(todo.id))}
-              >
-                <MdDelete className="text-[#ffffff] w-[50px] h-[50px] rounded-[100%] bg-[#E23D28] p-[14px]" />
+              <button onClick={() => dispatch(removeTodo(todo.id))}>
+                <MdDelete className="text-[#ffffff] bg-[#EA7A53] w-[25px] h-[25px] rounded-[100%] p-[2px]" />
               </button>
             </Tooltip>
+
+            {/* Edit Task Button */}
+
+            <Tooltip title="Edit Task" position="bottom" trigger="mouseenter">
+              <button onClick={() => dispatch(removeTodo(todo.id))}>
+                <MdModeEditOutline className="text-[#ffffff] bg-[#99B7DD] w-[25px] h-[25px] rounded-[100%] p-[2px]" />
+              </button>
+            </Tooltip>
+            </div>
+           
           </div>
         ))}
       </div>
-
-      <div className="flex flex-col gap-[20px] justify-center items-center">
+    {/* Task input */}
+      <div className="flex gap-[20px] justify-center items-center">
         <Tooltip title="Enter task here" position="bottom" trigger="mouseenter">
           <input
-            className="text-[#5B8AFD] text-[30px] text-center items-center font-[600] rounded-[30px] h-[80px] w-[450px] pt-[10px] bg-[#ffffff] border-none"
+            className="text-[#0A120B] text-[18px] text-center items-center font-[600] rounded-[15px] h-[50px] w-[300px] bg-[#ffffff] border-none"
             type="text"
             placeholder="Enter Task"
             value={inputTask}
             onChange={handleInputTask}
           />
         </Tooltip>
-        <button onClick={handleAddTodo}>
-          <FaPlus className="text-[#ffffff] w-[100px] h-[100px] rounded-[100%] bg-[#5E8BFF] p-[40px]" />
-        </button>
+        {/* Add task button */}
+        <Tooltip title="Add task" position="bottom" trigger="mouseenter">
+          <button onClick={handleAddTodo}>
+            <FaPlus className="text-[#ffffff] w-[80px] h-[80px] rounded-[100%] bg-[#5E8BFF] p-[20px]" />
+          </button>
+        </Tooltip>
       </div>
     </div>
   );
