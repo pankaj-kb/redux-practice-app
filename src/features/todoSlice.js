@@ -6,7 +6,7 @@ const initialState = {
     {
       id: nanoid(),
       title: "Modify this app",
-      completed: false,
+      completed: true,
     },
   ], //Storing todos as in array
 };
@@ -32,10 +32,15 @@ export const todoSlice = createSlice({
         todo.completed = true;
       }
     },
-    editTodo: () => {},
+    unMark : (state, action) => {
+      const todo = state.todos.find((todo) => todo.id === action.payload)
+      if (todo) {
+        todo.completed = false;
+      }
+    }
   },
 });
 
-export const { addTodo, removeTodo, completeTodo } = todoSlice.actions;
+export const { addTodo, removeTodo, completeTodo, unMark } = todoSlice.actions;
 
 export default todoSlice.reducer;
