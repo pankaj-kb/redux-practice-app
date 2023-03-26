@@ -30,8 +30,8 @@ function Todos() {
   const handleAddTodo = () => {
     if (inputTask !== "") {
       dispatch(addTodo(inputTask));
-      setInputTask("");
     }
+    setInputTask("");
   };
 
   const handleCompleteTodo = (id) => {
@@ -43,7 +43,7 @@ function Todos() {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[30px] border-[3px] border-[#5E8BFF]">
+    <div className="h-screen font-mono flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[30px] border-[3px] border-[#5E8BFF]">
       {/* Todo Lines area */}
       <div className="flex flex-col gap-[8px]">
         {todos.map((todo) => (
@@ -57,7 +57,7 @@ function Todos() {
                 todo.completed
                   ? "bg-[#A8D672] line-through italic"
                   : "bg-[#F7D44C]"
-              } text-[#0A120B] text-[18px] text-center items-center rounded-[15px] h-[50px] w-[300px] font-extrabold pt-[10px]`}
+              } text-[#0A120B] text-[18px] flex items-center justify-center rounded-[15px] h-[100px] w-[300px] font-extrabold pt-[10px]`}
             >
               {todo.title}
             </h1>
@@ -110,7 +110,7 @@ function Todos() {
       <div className="flex gap-[20px] justify-center items-center">
         <Tooltip title="Enter task here" position="bottom" trigger="mouseenter">
           <input
-            className="text-[#0A120B] text-[18px] text-center items-center font-[600] rounded-[15px] h-[50px] w-[300px] bg-[#ffffff] border-none"
+            className="outline-none text-[#0A120B] text-[18px] text-center items-center font-[600] rounded-[15px] h-[50px] w-[300px] bg-[#ffffff] border-none"
             type="text"
             placeholder="Enter Task"
             value={inputTask}
