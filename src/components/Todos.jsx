@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { removeTodo, addTodo, completeTodo, unMark } from "../features/todoSlice";
+import {
+  removeTodo,
+  addTodo,
+  completeTodo,
+  unMark,
+} from "../features/todoSlice";
 import "react-tippy/dist/tippy.css";
 import { Tooltip } from "react-tippy";
-import { CheckBox } from "@mui/icons-material";
+
+import { FaPlus } from "react-icons/fa";
+
+import { MdDelete } from "react-icons/md";
 
 function Todos() {
   const todos = useSelector((state) => state.todos.todos);
@@ -28,7 +36,7 @@ function Todos() {
 
   const handleUnMarkTodo = (id) => {
     dispatch(unMark(id));
-  }
+  };
 
   return (
     <div className="h-screen flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[50px]">
@@ -39,39 +47,41 @@ function Todos() {
             className="flex gap-[20px] justify-center items-center"
           >
             <h1
-              className={`${todo.completed ? "bg-[#9DECFF] line-through" : "bg-[#FEF970]"
-                } text-[#0A120B] text-[30px] text-center items-center font-[600] rounded-[30px] h-[80px] w-[450px] pt-[10px]`}
+              className={`${
+                todo.completed ? "bg-[#9DECFF] line-through" : "bg-[#FEF970]"
+              } text-[#0A120B] text-[30px] text-center items-center font-[600] rounded-[30px] h-[80px] w-[450px] pt-[10px]`}
             >
               {todo.title}
             </h1>
-            <Tooltip
-              title="Remove task from list"
-              position="bottom"
-              trigger="mouseenter"
-            >
-              <button
-                className="bg-[#FFFFFF]"
-                onClick={() => dispatch(removeTodo(todo.id))}
-              >
-                Remove Task
-              </button>
-            </Tooltip>
+
             <Tooltip
               title={todo.completed ? "Mark as incomplete" : "Mark as complete"}
               position="bottom"
               trigger="mouseenter"
             >
               <input
+                className="form-checkbox rounded-[20px] text-[#5B8AFD] h-6 w-6"
                 type="checkbox"
                 checked={todo.completed}
                 onChange={() => {
                   if (todo.completed) {
-                    handleUnMarkTodo(todo.id)
+                    handleUnMarkTodo(todo.id);
                   } else {
-                    handleCompleteTodo(todo.id)
+                    handleCompleteTodo(todo.id);
                   }
                 }}
               />
+            </Tooltip>
+            <Tooltip
+              title="Remove task from list"
+              position="bottom"
+              trigger="mouseenter"
+            >
+              <button
+                onClick={() => dispatch(removeTodo(todo.id))}
+              >
+                <MdDelete className="text-[#ffffff] w-[50px] h-[50px] rounded-[100%] bg-[#E23D28] p-[14px]" />
+              </button>
             </Tooltip>
           </div>
         ))}
@@ -87,8 +97,8 @@ function Todos() {
             onChange={handleInputTask}
           />
         </Tooltip>
-        <button className="bg-[#FFFFFF]" onClick={handleAddTodo}>
-          Add Task
+        <button onClick={handleAddTodo}>
+          <FaPlus className="text-[#ffffff] w-[100px] h-[100px] rounded-[100%] bg-[#5E8BFF] p-[40px]" />
         </button>
       </div>
     </div>
