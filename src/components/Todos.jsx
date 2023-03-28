@@ -15,7 +15,12 @@ import { Tooltip } from "react-tippy";
 // Icons
 import { FaPlus } from "react-icons/fa";
 
-import { MdDelete, MdModeEditOutline, MdCheck, MdRemoveDone } from "react-icons/md";
+import {
+  MdDelete,
+  MdModeEditOutline,
+  MdCheck,
+  MdRemoveDone,
+} from "react-icons/md";
 
 // Actual App
 function Todos() {
@@ -61,52 +66,56 @@ function Todos() {
             >
               {todo.title}
             </h1>
+
             <div className="flex gap-[12px] justify-center items-center">
-             {/* Mark Complete button */}
-             <Tooltip
-              title={todo.completed ? "Mark as incomplete" : "Mark as complete"}
-              position="bottom"
-              trigger="mouseenter"
-            >
-              <button
-                onClick={() => {
-                  if (todo.completed) {
-                    handleUnMarkTodo(todo.id);
-                  } else {
-                    handleCompleteTodo(todo.id);
-                  }
-                }}
-              > 
-              {todo.completed ? 
-              <MdRemoveDone className="bg-[#F7D44C] text-[#ffffff] w-[22px] h-[25px] rounded-[100%] p-[2px]" /> 
-              : <MdCheck className="bg-[#A8D672] text-[#ffffff] w-[22px] h-[25px] rounded-[100%] p-[2px]" />}
-              </button>
-            </Tooltip>
+              {/* Mark Complete button */}
+              <Tooltip
+                title={
+                  todo.completed ? "Mark as incomplete" : "Mark as complete"
+                }
+                position="bottom"
+                trigger="mouseenter"
+              >
+                <button
+                  onClick={() => {
+                    if (todo.completed) {
+                      handleUnMarkTodo(todo.id);
+                    } else {
+                      handleCompleteTodo(todo.id);
+                    }
+                  }}
+                >
+                  {todo.completed ? (
+                    <MdRemoveDone className="bg-[#F7D44C] text-[#ffffff] w-[22px] h-[25px] rounded-[100%] p-[2px]" />
+                  ) : (
+                    <MdCheck className="bg-[#A8D672] text-[#ffffff] w-[22px] h-[25px] rounded-[100%] p-[2px]" />
+                  )}
+                </button>
+              </Tooltip>
 
-            {/* Task remove button */}
-            <Tooltip
-              title="Remove task from list"
-              position="bottom"
-              trigger="mouseenter"
-            >
-              <button onClick={() => dispatch(removeTodo(todo.id))}>
-                <MdDelete className="text-[#ffffff] bg-[#EA7A53] w-[25px] h-[25px] rounded-[100%] p-[2px]" />
-              </button>
-            </Tooltip>
+              {/* Task remove button */}
+              <Tooltip
+                title="Remove task from list"
+                position="bottom"
+                trigger="mouseenter"
+              >
+                <button onClick={() => dispatch(removeTodo(todo.id))}>
+                  <MdDelete className="text-[#ffffff] bg-[#EA7A53] w-[25px] h-[25px] rounded-[100%] p-[2px]" />
+                </button>
+              </Tooltip>
 
-            {/* Edit Task Button */}
+              {/* Edit Task Button */}
 
-            <Tooltip title="Edit Task" position="bottom" trigger="mouseenter">
-              <button onClick={() => dispatch(removeTodo(todo.id))}>
-                <MdModeEditOutline className="text-[#ffffff] bg-[#99B7DD] w-[25px] h-[25px] rounded-[100%] p-[2px]" />
-              </button>
-            </Tooltip>
+              <Tooltip title="Edit Task" position="bottom" trigger="mouseenter">
+                <button onClick={() => dispatch(removeTodo(todo.id))}>
+                  <MdModeEditOutline className="text-[#ffffff] bg-[#99B7DD] w-[25px] h-[25px] rounded-[100%] p-[2px]" />
+                </button>
+              </Tooltip>
             </div>
-           
           </div>
         ))}
       </div>
-    {/* Task input */}
+      {/* Task input */}
       <div className="flex gap-[20px] justify-center items-center">
         <Tooltip title="Enter task here" position="bottom" trigger="mouseenter">
           <input
