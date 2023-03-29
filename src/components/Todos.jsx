@@ -48,13 +48,13 @@ function Todos() {
   };
 
   return (
-    <div className="h-screen font-mono flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[30px] border-[3px] border-[#5E8BFF]">
+    <div className="h-screen flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[30px] border-[3px] border-[#5E8BFF]">
       {/* Todo Lines area */}
-      <div className="flex flex-col gap-[8px]">
+      <div className="flex flex-col gap-[18px]">
         {todos.map((todo) => (
           <div
             key={todo.id}
-            className="flex gap-[12px] justify-center items-center"
+            className="flex flex-col gap-[12px] justify-center items-center"
           >
             {/* Todo Title */}
             <h1
@@ -62,12 +62,12 @@ function Todos() {
                 todo.completed
                   ? "bg-[#A8D672] line-through italic"
                   : "bg-[#F7D44C]"
-              } text-[#0A120B] text-[18px] flex items-center justify-center rounded-[15px] h-[100px] w-[300px] font-extrabold pt-[10px]`}
+              } text-[#0A120B] text-[18px] rounded-[10px] h-[70%] w-[70%] font-extrabold p-[1%] text-center`}
             >
               {todo.title}
             </h1>
 
-            <div className="flex gap-[12px] justify-center items-center">
+            <div className="flex flex-row gap-[12px] ml-[50%]">
               {/* Mark Complete button */}
               <Tooltip
                 title={
@@ -116,7 +116,7 @@ function Todos() {
         ))}
       </div>
       {/* Task input */}
-      <div className="flex gap-[20px] justify-center items-center">
+      <div className="flex flex-col gap-[20px] justify-center items-center">
         <Tooltip title="Enter task here" position="bottom" trigger="mouseenter">
           <input
             className="outline-none text-[#0A120B] text-[18px] text-center items-center font-[600] rounded-[15px] h-[50px] w-[300px] bg-[#ffffff] border-none"

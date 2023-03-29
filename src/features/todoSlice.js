@@ -8,6 +8,11 @@ const initialState = {
       title: "Add local storage to this app",
       completed: false,
     },
+    {
+      id: nanoid(),
+      title: "This is an very long task to check the responsiveness of this app",
+      completed: false,
+    },
   ], //Storing todos as in array
 };
 
