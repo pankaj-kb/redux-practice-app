@@ -60,9 +60,9 @@ function Todos() {
             <h1
               className={`${
                 todo.completed
-                  ? "bg-[#A8D672] line-through italic"
+                  ? "bg-[#A8D672] line-through"
                   : "bg-[#F7D44C]"
-              } text-[#0A120B] text-[18px] rounded-[10px] h-[70%] w-[70%] font-extrabold p-[1%] text-center`}
+              } text-[#0A120B] text-[18px] rounded-[10px] h-[70%] w-[250px] font-extrabold p-[1%] text-center`}
             >
               {todo.title}
             </h1>
@@ -129,7 +129,7 @@ function Todos() {
         {/* Add task button */}
         <Tooltip title="Add task" position="bottom" trigger="mouseenter">
           <button onClick={handleAddTodo}>
-            <FaPlus className="text-[#ffffff] w-[80px] h-[80px] rounded-[100%] bg-[#5E8BFF] p-[20px]" />
+            <FaPlus className="text-[#ffffff] h-[100%] w-[200%] rounded-[100%] bg-[#5E8BFF] p-[5px]" />
           </button>
         </Tooltip>
       </div>
