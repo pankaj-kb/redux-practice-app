@@ -29,6 +29,9 @@ function Todos() {
   const todos = useSelector((state) => state.todos.todos);
   const dispatch = useDispatch();
   const [inputTask, setInputTask] = useState("");
+  const [editable, setEditable] = useState(false);
+  const [newTitle, setNewTitle] = useState('');
+
 
   const handleInputTask = (event) => {
     setInputTask(event.target.value);
@@ -50,8 +53,15 @@ function Todos() {
   };
 
   const handleEditTodo = (id) => {
-    dispatch(editTodo({id: id, title: "updated todoTitle"}))
-  }
+    dispatch(editTodo({ id: id, title: newTitle }));
+  };
+
+  // const handleEditTodo = (id) => {
+  //   setEditable(true)
+  //   console.log(todos)
+  // }
+
+  // Actual Render
 
   return (
     <div className="h-screen flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[30px] border-[3px] border-[#5E8BFF]">
@@ -65,10 +75,8 @@ function Todos() {
             {/* Todo Title */}
             <h1
               className={`${
-                todo.completed
-                  ? "bg-[#A8D672] line-through"
-                  : "bg-[#F7D44C]"
-              } text-[#0A120B] text-[18px] rounded-[10px] h-[70%] w-[250px] font-extrabold p-[1%] text-center`}
+                todo.completed ? "bg-[#A8D672] line-through" : "bg-[#F7D44C]"
+              } text-[#0A120B] text-[18px] rounded-[10px] h-[70%] w-[250px] font-extrabold p-[1%] text-center focus:outline-none`}
             >
               {todo.title}
             </h1>
@@ -121,8 +129,9 @@ function Todos() {
           </div>
         ))}
       </div>
+
       {/* Task input */}
-      <div className="flex flex-col gap-[20px] justify-center items-center">
+      <div className="flex flex-col gap-[20px] justify-center items-center absolute bottom-[10%]">
         <Tooltip title="Enter task here" position="bottom" trigger="mouseenter">
           <input
             className="outline-none text-[#0A120B] text-[18px] text-center items-center font-[600] rounded-[15px] h-[50px] w-[300px] bg-[#ffffff] border-none"
