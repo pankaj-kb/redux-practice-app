@@ -10,7 +10,8 @@ const initialState = {
     },
     {
       id: nanoid(),
-      title: "This is an very long task to check the responsiveness of this app",
+      title:
+        "This is an very long task to check the responsiveness of this app",
       completed: false,
     },
   ], //Storing todos as in array
@@ -43,10 +44,17 @@ export const todoSlice = createSlice({
         todo.completed = false;
       }
     },
-    editTodo: (state, action) => {},
+    editTodo: (state, action) => {
+      const {id, title} = action.payload;
+      const todo = state.todos.find((todo) => todo.id === id);
+      if (todo) {
+        todo.title = title;
+      }
+    },
   },
 });
 
-export const { addTodo, removeTodo, completeTodo, unMark, editTodo } = todoSlice.actions;
+export const { addTodo, removeTodo, completeTodo, unMark, editTodo } =
+  todoSlice.actions;
 
 export default todoSlice.reducer;

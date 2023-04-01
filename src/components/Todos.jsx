@@ -6,6 +6,7 @@ import {
   addTodo,
   completeTodo,
   unMark,
+  editTodo,
 } from "../features/todoSlice";
 
 import "react-tippy/dist/tippy.css";
@@ -21,6 +22,7 @@ import {
   MdCheck,
   MdRemoveDone,
 } from "react-icons/md";
+import { nanoid } from "@reduxjs/toolkit";
 
 // Actual App
 function Todos() {
@@ -46,6 +48,10 @@ function Todos() {
   const handleUnMarkTodo = (id) => {
     dispatch(unMark(id));
   };
+
+  const handleEditTodo = (id) => {
+    dispatch(editTodo({id: id, title: "updated todoTitle"}))
+  }
 
   return (
     <div className="h-screen flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[30px] border-[3px] border-[#5E8BFF]">
@@ -107,7 +113,7 @@ function Todos() {
               {/* Edit Task Button */}
 
               <Tooltip title="Edit Task" position="bottom" trigger="mouseenter">
-                <button onClick={() => dispatch(removeTodo(todo.id))}>
+                <button onClick={() => handleEditTodo(todo.id)}>
                   <MdModeEditOutline className="text-[#ffffff] bg-[#99B7DD] w-[25px] h-[25px] rounded-[100%] p-[2px]" />
                 </button>
               </Tooltip>
