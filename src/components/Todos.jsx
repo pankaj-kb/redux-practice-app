@@ -66,7 +66,7 @@ function Todos() {
   return (
     <div className="h-screen flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[30px] border-[3px] border-[#5E8BFF]">
       {/* Todo Lines area */}
-      <div className="flex flex-col gap-[18px]">
+      <div className="flex flex-col gap-[18px] absolute top-[10%]">
         {todos.map((todo) => (
           <div
             key={todo.id}
