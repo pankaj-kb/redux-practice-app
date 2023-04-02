@@ -29,12 +29,12 @@ function Todos() {
   const todos = useSelector((state) => state.todos.todos);
   const dispatch = useDispatch();
   const [inputTask, setInputTask] = useState("");
-  const [editable, setEditable] = useState(false);
-  const [newTitle, setNewTitle] = useState('');
-
+  const [editID, setEditID] = useState("");
+  const [newTitle, setNewTitle] = useState("");
 
   const handleInputTask = (event) => {
     setInputTask(event.target.value);
+    setNewTitle("");
   };
 
   const handleAddTodo = () => {
@@ -56,17 +56,16 @@ function Todos() {
     dispatch(editTodo({ id: id, title: newTitle }));
   };
 
-  // const handleEditTodo = (id) => {
-  //   setEditable(true)
-  //   console.log(todos)
-  // }
+  const handleNewTitle = (event) => {
+    setNewTitle(event.target.value);
+  };
 
   // Actual Render
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[30px] border-[3px] border-[#5E8BFF]">
+    <div className="h-screen flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[30px] ">
       {/* Todo Lines area */}
-      <div className="flex flex-col gap-[18px] absolute top-[10%]">
+      <div className="flex flex-col gap-[18px] absolute top-[10%] border-[3px] border-[#5E8BFF] h-[550px] w-[400px] pt-[10px] pb-[10px]">
         {todos.map((todo) => (
           <div
             key={todo.id}
@@ -107,6 +106,17 @@ function Todos() {
                 </button>
               </Tooltip>
 
+              {/* Task Edit Button */}
+
+              <Tooltip title="Edit Task" position="bottom" trigger="mouseenter">
+                <button onClick={() => setEditID(todo.id)}>
+                  <MdModeEditOutline
+                    className="text-[#ffffff] bg-[#99B7DD] w-[25px] 
+                  h-[25px] rounded-[100%] p-[2px]"
+                  />
+                </button>
+              </Tooltip>
+
               {/* Task remove button */}
               <Tooltip
                 title="Remove task from list"
@@ -117,15 +127,19 @@ function Todos() {
                   <MdDelete className="text-[#ffffff] bg-[#EA7A53] w-[25px] h-[25px] rounded-[100%] p-[2px]" />
                 </button>
               </Tooltip>
-
-              {/* Edit Task Button */}
-
-              <Tooltip title="Edit Task" position="bottom" trigger="mouseenter">
-                <button onClick={() => handleEditTodo(todo.id)}>
-                  <MdModeEditOutline className="text-[#ffffff] bg-[#99B7DD] w-[25px] h-[25px] rounded-[100%] p-[2px]" />
-                </button>
-              </Tooltip>
             </div>
+
+            {editID === todo.id ? (
+              <>
+                <input type="text" value={newTitle} onChange={handleNewTitle} />
+                <button
+                  className="text-white"
+                  onClick={handleEditTodo(todo.id)}
+                >
+                  Save
+                </button>
+              </>
+            ) : ''}
           </div>
         ))}
       </div>
@@ -141,6 +155,7 @@ function Todos() {
             onChange={handleInputTask}
           />
         </Tooltip>
+
         {/* Add task button */}
         <Tooltip title="Add task" position="bottom" trigger="mouseenter">
           <button onClick={handleAddTodo}>
