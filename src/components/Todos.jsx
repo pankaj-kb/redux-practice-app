@@ -52,12 +52,13 @@ function Todos() {
     dispatch(unMark(id));
   };
 
-  const handleEditTodo = (id) => {
-    dispatch(editTodo({ id: id, title: newTitle }));
-  };
-
   const handleNewTitle = (event) => {
     setNewTitle(event.target.value);
+  };
+
+  const handleEditTodo = (id) => {
+    dispatch(editTodo({ id: id, title: newTitle }));
+    setEditID('');
   };
 
   // Actual Render
@@ -65,82 +66,89 @@ function Todos() {
   return (
     <div className="h-screen flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[30px]">
       {/* Todo Lines area */}
-      <div className="flex flex-col gap-[18px] absolute top-[10%] border-[3px]
-       border-[#5E8BFF] h-[590px] w-[400px] pt-[5%] pb-[10px] max-h-[590px] scrollbar-none overflow-y-scroll">
+      <div
+        className="flex flex-col gap-[18px] absolute top-[10%] border-[3px]
+       border-[#5E8BFF] h-[590px] w-[400px] pt-[5%] pb-[10px] max-h-[590px] scrollbar-none  overflow-y-scroll"
+      >
         {todos.map((todo) => (
           <div
             key={todo.id}
             className="flex flex-col gap-[12px] justify-center items-center"
           >
-            {/* Todo Title */}
-            <h1
-              className={`${
-                todo.completed ? "bg-[#A8D672] line-through" : "bg-[#F7D44C]"
-              } text-[#0A120B] text-[18px] rounded-[10px] h-[70%] w-[250px] font-extrabold p-[1%] text-center focus:outline-none`}
-            >
-              {todo.title}
-            </h1>
-
-            <div className="flex flex-row gap-[12px] ml-[50%]">
-              {/* Mark Complete button */}
-              <Tooltip
-                title={
-                  todo.completed ? "Mark as incomplete" : "Mark as complete"
-                }
-                position="bottom"
-                trigger="mouseenter"
-              >
-                <button
-                  onClick={() => {
-                    if (todo.completed) {
-                      handleUnMarkTodo(todo.id);
-                    } else {
-                      handleCompleteTodo(todo.id);
-                    }
-                  }}
-                >
-                  {todo.completed ? (
-                    <MdRemoveDone className="bg-[#F7D44C] text-[#ffffff] w-[22px] h-[25px] rounded-[100%] p-[2px]" />
-                  ) : (
-                    <MdCheck className="bg-[#A8D672] text-[#ffffff] w-[22px] h-[25px] rounded-[100%] p-[2px]" />
-                  )}
-                </button>
-              </Tooltip>
-
-              {/* Task Edit Button */}
-
-              <Tooltip title="Edit Task" position="bottom" trigger="mouseenter">
-                <button onClick={() => setEditID(todo.id)}>
-                  <MdModeEditOutline
-                    className="text-[#ffffff] bg-[#99B7DD] w-[25px] 
-                  h-[25px] rounded-[100%] p-[2px]"
-                  />
-                </button>
-              </Tooltip>
-
-              {/* Task remove button */}
-              <Tooltip
-                title="Remove task from list"
-                position="bottom"
-                trigger="mouseenter"
-              >
-                <button onClick={() => dispatch(removeTodo(todo.id))}>
-                  <MdDelete className="text-[#ffffff] bg-[#EA7A53] w-[25px] h-[25px] rounded-[100%] p-[2px]" />
-                </button>
-              </Tooltip>
-            </div>
-
-            {editID === todo.id ? (
+            {editID !== todo.id ? (
               <>
-                <input type="text" value={newTitle} onChange={handleNewTitle} />
-                <button
-                  className="text-white"
-                  onClick={handleEditTodo(todo.id)}
+                {/* Todo Title */}
+                <h1
+                  className={`${
+                    todo.completed
+                      ? "bg-[#A8D672] line-through"
+                      : "bg-[#F7D44C]"
+                  } text-[#0A120B] text-[18px] rounded-[10px] h-[70%] w-[250px] font-extrabold p-[1%] text-center focus:outline-none`}
                 >
-                  Save
+                  {todo.title}
+                </h1>
+
+                <div className="flex flex-row gap-[12px] ml-[50%]">
+                  {/* Mark Complete button */}
+                  <Tooltip
+                    title={
+                      todo.completed ? "Mark as incomplete" : "Mark as complete"
+                    }
+                    position="bottom"
+                    trigger="mouseenter"
+                  >
+                    <button
+                      onClick={() => {
+                        if (todo.completed) {
+                          handleUnMarkTodo(todo.id);
+                        } else {
+                          handleCompleteTodo(todo.id);
+                        }
+                      }}
+                    >
+                      {todo.completed ? (
+                        <MdRemoveDone className="bg-[#F7D44C] text-[#ffffff] w-[22px] h-[25px] rounded-[100%] p-[2px]" />
+                      ) : (
+                        <MdCheck className="bg-[#A8D672] text-[#ffffff] w-[22px] h-[25px] rounded-[100%] p-[2px]" />
+                      )}
+                    </button>
+                  </Tooltip>
+
+                  {/* Task Edit Button */}
+
+                  <Tooltip
+                    title="Edit Task"
+                    position="bottom"
+                    trigger="mouseenter"
+                  >
+                    <button onClick={() => setEditID(todo.id)}>
+                      <MdModeEditOutline
+                        className="text-[#ffffff] bg-[#99B7DD] w-[25px] 
+                  h-[25px] rounded-[100%] p-[2px]"
+                      />
+                    </button>
+                  </Tooltip>
+
+                  {/* Task remove button */}
+                  <Tooltip
+                    title="Remove task from list"
+                    position="bottom"
+                    trigger="mouseenter"
+                  >
+                    <button onClick={() => dispatch(removeTodo(todo.id))}>
+                      <MdDelete className="text-[#ffffff] bg-[#EA7A53] w-[25px] h-[25px] rounded-[100%] p-[2px]" />
+                    </button>
+                  </Tooltip>
+                </div>
+              </>
+            ) : (
+              <>
+              <input type="text" value={newTitle} onChange={handleNewTitle} className="bg-[#F7D44C] text-[#0A120B] text-[18px] rounded-[10px] h-[70%] w-[250px] font-extrabold p-[1%] text-center focus:outline-none"/>
+                <button>
+                <FaPlus onClick={handleEditTodo(todo.id)} className="text-[#ffffff] bg-[#5E8BFF] w-[25px] h-[25px] rounded-[100%] p-[2px]" />
                 </button>
               </>
-            ) : ''}
+            )}
           </div>
         ))}
       </div>
