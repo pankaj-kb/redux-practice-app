@@ -63,9 +63,10 @@ function Todos() {
   // Actual Render
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[30px] ">
+    <div className="h-screen flex flex-col justify-center items-center bg-[#01011F] text-[#0A120B] gap-[30px]">
       {/* Todo Lines area */}
-      <div className="flex flex-col gap-[18px] absolute top-[10%] border-[3px] border-[#5E8BFF] h-[550px] w-[400px] pt-[10px] pb-[10px]">
+      <div className="flex flex-col gap-[18px] absolute top-[10%] border-[3px]
+       border-[#5E8BFF] h-[590px] w-[400px] pt-[5%] pb-[10px] max-h-[590px] scrollbar-none overflow-y-scroll">
         {todos.map((todo) => (
           <div
             key={todo.id}
