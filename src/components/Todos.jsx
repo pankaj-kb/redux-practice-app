@@ -51,15 +51,14 @@ function Todos() {
   const handleUnMarkTodo = (id) => {
     dispatch(unMark(id));
   };
-  const handleEditTodo = (id) => {
+  const handleEditTodo = (event, id) => {
+    event.preventDefault();
+    const newTitle = event.target.elements.editedTask.value.trim()
     if (newTitle !== "") {
       dispatch(editTodo({ id: id, title: newTitle }));
       setNewTitle("");
+      setEditID(0);
     }
-  };
-
-  const handleNewTitle = (event) => {
-    setNewTitle(event.target.value);
   };
 
   const handleCancelClick = () => {
