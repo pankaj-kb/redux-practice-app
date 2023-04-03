@@ -51,14 +51,19 @@ function Todos() {
   const handleUnMarkTodo = (id) => {
     dispatch(unMark(id));
   };
+  const handleEditTodo = (id) => {
+    if (newTitle !== "") {
+      dispatch(editTodo({ id: id, title: newTitle }));
+      setNewTitle("");
+    }
+  };
 
   const handleNewTitle = (event) => {
     setNewTitle(event.target.value);
   };
 
-  const handleEditTodo = (id) => {
-    dispatch(editTodo({ id: id, title: newTitle }));
-    setEditID('');
+  const handleCancelClick = () => {
+    setEditID(0);
   };
 
   // Actual Render
@@ -142,12 +147,20 @@ function Todos() {
                 </div>
               </>
             ) : (
-              <>
-              <input type="text" value={newTitle} onChange={handleNewTitle} className="bg-[#F7D44C] text-[#0A120B] text-[18px] rounded-[10px] h-[70%] w-[250px] font-extrabold p-[1%] text-center focus:outline-none"/>
-                <button>
-                <FaPlus onClick={handleEditTodo(todo.id)} className="text-[#ffffff] bg-[#5E8BFF] w-[25px] h-[25px] rounded-[100%] p-[2px]" />
+              <form onSubmit={(event) => handleEditTodo(event, todo.id)}>
+                <input
+                  className="bg-[#F7D44C] text-[#0A120B] text-[18px] rounded-[10px] h-[70%] w-[250px] font-extrabold p-[1%] text-center focus:outline-none"
+                  type="text"
+                  name="editedTask"
+                  defaultValue={todo.title}
+                />
+                <button type="submit">
+                  <FaPlus className="text-[#ffffff] bg-[#5E8BFF] w-[25px] h-[25px] rounded-[100%] p-[2px]" />
                 </button>
-              </>
+                <button className="bg-[white]" onClick={handleCancelClick}>
+                  Cancel
+                </button>
+              </form>
             )}
           </div>
         ))}
